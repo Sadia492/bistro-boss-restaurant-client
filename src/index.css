@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.thumbs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.slide img {
+  height: 100vh; /* Set your desired height */
+  object-fit: cover; /* Ensure the image fills the space */
+}
+.swiper-pagination {
+  bottom: -20px; /* Adjust this value to move bullets below the slides */
+}
