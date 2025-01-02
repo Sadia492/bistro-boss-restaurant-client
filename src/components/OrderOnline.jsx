@@ -21,7 +21,7 @@ export default function OrderOnline() {
         <Swiper
           slidesPerView={4}
           spaceBetween={10}
-          centeredSlides={true}
+          centeredSlides={false}
           pagination={{
             clickable: true,
           }}

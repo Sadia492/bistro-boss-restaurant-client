@@ -1,16 +1,21 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import useCart from "../hooks/useCart";
 
 export default function Navbar() {
+  const { user, signOutUser } = useAuth();
+  const { cartData } = useCart();
+  console.log(cartData);
   const links = (
     <>
       <NavLink to="/">
         <li>Home</li>
       </NavLink>
-      <NavLink>
+      <NavLink to="/contact">
         <li>Contact Us</li>
       </NavLink>
-      <NavLink>
+      <NavLink to="/dashboard">
         <li>Dashboard</li>
       </NavLink>
       <NavLink to="/our-menu">
@@ -21,6 +26,11 @@ export default function Navbar() {
       </NavLink>
     </>
   );
+  const handleSignOut = () => {
+    signOutUser().then(() => {
+      toast.success("Logout successful");
+    });
+  };
   return (
     <div className="fixed top-0 z-10 bg-black/20 text-white w-full">
       <div className="navbar w-11/12 mx-auto">
@@ -52,12 +62,40 @@ export default function Navbar() {
           <a className="btn btn-ghost text-xl">Bistro Boss Restaurant</a>
         </div>
         <div className="navbar-end">
-          <div className=" hidden lg:flex">
+          <div className=" hidden lg:flex items-center justify-center">
             <ul className="menu menu-horizontal px-1 uppercase gap-4">
               {links}
             </ul>
+            <Link to="/dashboard/manage">
+              <button className="btn">
+                Cart
+                <div className="badge badge-secondary">+{cartData?.length}</div>
+              </button>
+            </Link>
           </div>
-          <a className="btn">Button</a>
+          {user ? (
+            <div className="flex gap-2">
+              <div className="">
+                <img
+                  alt="user"
+                  className="w-10 h-10 object-cover rounded-full"
+                  src={user?.photoURL}
+                />
+              </div>
+              <Link
+                onClick={handleSignOut}
+                className="btn bg-gradient-to-r from-primary to-secondary text-white"
+              >
+                Logout
+              </Link>
+            </div>
+          ) : (
+            <>
+              <Link to="/login">
+                <button className="btn">Login</button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

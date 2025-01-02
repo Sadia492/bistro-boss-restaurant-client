@@ -14,3 +14,6 @@
 .swiper-pagination {
   bottom: -20px; /* Adjust this value to move bullets below the slides */
 }
+.active {
+  color: white;
+}
