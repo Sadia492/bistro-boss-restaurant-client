@@ -22,7 +22,17 @@ export default function ManageItems() {
         title={"MANAGE ALL ITEMS"}
         subtitle={"---Hurry Up!---"}
       ></SectionTitle>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto mt-12">
+        <div className="flex justify-evenly">
+          <h2 className="font-semibold text-3xl">
+            Total Items: {cartData?.length}
+          </h2>
+          <h2 className="font-semibold text-3xl">
+            Total Price:{" "}
+            {cartData?.reduce((prev, curr) => prev + curr?.price, 0)}
+          </h2>
+          <button className="btn btn-warning">Pay</button>
+        </div>
         <table className="table">
           {/* head */}
           <thead>

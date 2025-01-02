@@ -8,7 +8,7 @@ export default function Dashboard() {
       <div>
         <Sidebar></Sidebar>
       </div>
-      <div className="flex-grow">
+      <div className="flex-grow px-12">
         <Outlet></Outlet>
       </div>
     </div>
