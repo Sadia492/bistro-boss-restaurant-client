@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialLogin from "./SocialLogin";
 
 export default function Register() {
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
   const { createUser, setUser, updateUser, setLoading } = useAuth();
 
   const handleRegister = (e) => {
@@ -29,11 +32,20 @@ export default function Register() {
       return setError("Password length must be at least 6 character");
     }
     createUser(email, password)
-      .then((result) => {
+      .then(async (result) => {
         setUser(result.user);
-        toast.success("Registration successful");
-        navigate("/");
+
         updateUser({ displayName: name, photoURL: photo }).then(() => {});
+        const userInfo = {
+          name,
+          email,
+          role: "user",
+        };
+        const { data } = await axiosPublic.post("/users", userInfo);
+        if (data.insertedId) {
+          toast.success("Registration successful");
+          navigate("/");
+        }
       })
       .catch((error) => toast.error(error.code))
       .finally(() => setLoading(false));
@@ -113,6 +125,7 @@ export default function Register() {
             </Link>
           </p>
         </form>
+        <SocialLogin></SocialLogin>
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ import {
   LoadCanvasTemplateNoReload,
   validateCaptcha,
 } from "react-simple-captcha";
+import SocialLogin from "./SocialLogin.jsx";
 
 export default function Login() {
   const [show, setShow] = useState(false);
@@ -37,12 +38,7 @@ export default function Login() {
       });
     form.reset();
   };
-  const handleSignInWithGoogle = () => {
-    signInWithGoogle().then(() => {
-      navigate("/");
-      toast.success("Login successful");
-    });
-  };
+
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
@@ -56,12 +52,6 @@ export default function Login() {
   return (
     <div className="flex flex-col-reverse lg:flex-row justify-center items-center gap-12 h-screen w-11/12 mx-auto">
       <div className="card max-w-sm flex-1 w-full p-4  shadow-2xl">
-        <div className="text-center btn bg-gradient-to-r from-primary to-secondary text-white">
-          <button onClick={handleSignInWithGoogle} className="flex gap-3">
-            <FaGoogle></FaGoogle> Sign In With Google
-          </button>
-        </div>
-        <div className="divider">OR</div>
         <form onSubmit={handleLogin} className="card-body">
           <h2 className="text-3xl font-bold bg-gradient-to-r from-primary from-0 to-75% to-secondary text-transparent bg-clip-text text-center">
             LOGIN HERE
@@ -138,6 +128,7 @@ export default function Login() {
             </Link>
           </p>
         </form>
+        <SocialLogin></SocialLogin>
       </div>
     </div>
   );

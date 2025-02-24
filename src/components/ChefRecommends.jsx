@@ -14,8 +14,8 @@ export default function ChefRecommends() {
       ></SectionTitle>
 
       <div className="grid grid-cols-3 mt-4 gap-6">
-        {data?.slice(0, 3)?.map((item) => (
-          <MenuCard item={item}></MenuCard>
+        {data?.slice(0, 3)?.map((item, idx) => (
+          <MenuCard key={idx} item={item}></MenuCard>
         ))}
       </div>
     </div>

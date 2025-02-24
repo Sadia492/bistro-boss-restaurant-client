@@ -2,11 +2,12 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useCart from "../hooks/useCart";
+import toast from "react-hot-toast";
 
 export default function Navbar() {
   const { user, signOutUser } = useAuth();
   const { cartData } = useCart();
-  console.log(cartData);
+
   const links = (
     <>
       <NavLink to="/">
@@ -66,7 +67,7 @@ export default function Navbar() {
             <ul className="menu menu-horizontal px-1 uppercase gap-4">
               {links}
             </ul>
-            <Link to="/dashboard/manage">
+            <Link to="/dashboard/my-cart">
               <button className="btn">
                 Cart
                 <div className="badge badge-secondary">+{cartData?.length}</div>

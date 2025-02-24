@@ -9,6 +9,11 @@ import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../pages/Dashboard";
 import AdminHome from "../pages/AdminHome";
 import ManageItems from "../pages/ManageItems";
+import UserHome from "../pages/user/UserHome";
+import MyCart from "../pages/user/MyCart";
+import useAuth from "../hooks/useAuth";
+import SharedHome from "../pages/sharedHome";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -46,15 +51,23 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,
-        element: <AdminHome></AdminHome>,
+        element: <SharedHome></SharedHome>,
       },
       {
         path: "manage",
         element: <ManageItems></ManageItems>,
+      },
+      {
+        path: "my-cart",
+        element: <MyCart></MyCart>,
       },
     ],
   },
